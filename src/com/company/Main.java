@@ -1,65 +1,31 @@
-package com.company;
+// Interfaces Practice
 
-import java.util.Objects;
+package com.company;
 
 public class Main {
 
     public static void main(String[] args) {
-	    Dog dog1 = new Dog("bark");
-        Dog dog2 = new Dog("bark");
-        System.out.println(dog1.equals(dog2));
+        // Create Objects
+        Shopkeeper shopKeeper = new Shopkeeper("Larry");
+        Teacup teacup = new Teacup();
+        String treehouse = "Treehouse";
 
+        // Loop through Objects
+        Object[] objects = {shopKeeper, teacup, treehouse};
+
+        for (Object object : objects) {
+            if (object instanceof Chattable) {
+                String response = ((Chattable) object).chat();
+                System.out.println(response);
+            }
+        }
+
+        // Loop through Chattables
+        Chattable[] chattables = {shopKeeper, teacup};
+
+        for (Chattable chattable : chattables) {
+            String response = chattable.chat();
+            System.out.println(response);
+        }
     }
 }
-
-abstract class Animal {
-    String sound = "";
-
-    Animal(String sound) {
-        this.sound = sound;
-    }
-
-    abstract void findFood();
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + ": sound = " + sound;
-    }
-
-    void makeSound() {
-        System.out.println(sound);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Animal animal = (Animal) o;
-        return Objects.equals(sound, animal.sound);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sound);
-    }
-}
-
-class Dog extends Animal {
-    Dog(String sound) {
-        super(sound);
-    }
-
-    @Override
-    void findFood() {
-        System.out.println("*looks at human*");
-        makeSound();
-    }
-
-    @Override
-    void makeSound() {
-        super.makeSound();
-        System.out.println("*wags tail*");
-    }
-}
-
-class DogFood {}
